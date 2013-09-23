@@ -19,3 +19,4 @@ Opts can be ommited and I currently only support setting `{important: true}`
 
 You may also disable notifications via `MessageService.config({disabled:true})`
 
+You can view a demo of my module at develementz.com/module
