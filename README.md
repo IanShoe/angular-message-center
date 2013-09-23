@@ -3,7 +3,7 @@ angular-message-center
 
 Easy Angular Notification Center
 
-This is an angular module that allows for easy message broadcasting as notification bubbles. The module has two importance levels which are styled differently through the message-center.css file. The css is meant to be tailored by the user for their specific needs.
+This is an angular module that allows for easy message broadcasting as notification bubbles. The module has two importance levels which are styled differently through the message-center.css file. The css is meant to be tailored by the user for their specific needs. Oh and it's also responsive!
 
 Use Steps:
 
