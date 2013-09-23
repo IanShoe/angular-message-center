@@ -15,7 +15,7 @@
 	color: black;
 }
 
-/*How do I make it so it doesn't span the entire distance but still remain centered*/
+/*How do I make it so it doesn't span the entire distance but still remain centered for responsitve effect*/
 .message-center-important{
 	top: 60px;
 	left: 0;

@@ -5,9 +5,9 @@ factory('MessageService', function ($rootScope) {
     var MessageService = {};
     MessageService.config = {
         disabled: false
-    }
+    };
 
-    MessageService.history = [];
+    var history = [];
 
     MessageService.configure = function(config){
         this.config.disabled = angular.isDefined(config.disabled) ? config.disabled : this.config.disabled;
@@ -17,6 +17,9 @@ factory('MessageService', function ($rootScope) {
         if(!this.config.disabled){
             counter++;
             var messageItem = {};
+            // Should probably do this better since I tailored this to my own needs
+            // I didn't want the div to automatically grow based on the message size,
+            // but rather have distinct cut off points
             if(message.length > 26){
                 messageItem.class = 'large';
             }
@@ -25,12 +28,12 @@ factory('MessageService', function ($rootScope) {
             }
             if(opts){
                 if(opts.important){
-                    messageItem.type = 'important'
+                    messageItem.type = 'important';
                 }
             }
             messageItem.message = message;
             messageItem.id = counter;
-            this.history.push(messageItem);
+            history.push(messageItem);
             $rootScope.$broadcast('MessageService.broadcast', messageItem);
         }
         else {
@@ -39,11 +42,11 @@ factory('MessageService', function ($rootScope) {
     };
 
     MessageService.getHistory = function(){
-        return this.history;
+        return history;
     }
 
     MessageService.clearHistory = function(){
-        this.history = [];
+        history = [];
         counter = 0;
     }
     
@@ -72,7 +75,15 @@ directive('messageCenter', function ($timeout) {
             });
             $scope.removeItem = function (message){
                 $scope.$emit('MessageService.remove', message);
-                message.type ? $scope.impMessageItems.remove(message) : $scope.messageItems.remove(message);
+                message.type ? remove($scope.impMessageItems, message) : remove($scope.messageItems, message);
+            }
+
+            function remove(array, item){
+                var index = array.indexOf(item);
+                if(index != -1){
+                    array.splice(index, 1);
+                }
+                return array;
             }
         }
     };
@@ -87,14 +98,3 @@ directive('message', function () {
                     '</div>'
     };
 });
-
-Array.prototype.remove = function() {
-    var what, a = arguments, L = a.length, ax;
-    while (L && this.length) {
-        what = a[--L];
-        while ((ax = this.indexOf(what)) !== -1) {
-            this.splice(ax, 1);
-        }
-    }
-    return this;
-};
