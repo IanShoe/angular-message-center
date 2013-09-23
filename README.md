@@ -7,13 +7,15 @@ This is an angular module that allows for easy message broadcasting as notificat
 
 Use Steps:
 
-1. Add the `<script>` tag on your index.html
+1. bower install angular-message-center
 
-2. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['MessageCenter']);`
+2. Add the `<script>` tag on your index.html
 
-3. Inject the MessageService into your controllers, directives, or other services `yourApp.controller('myCtrl', ['$scope', 'MessageService', function($scope, MessageService){...}])`
+3. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['MessageCenter']);`
 
-4. Broadcast a message by calling `MessageService.broadcast('This is an awesome message', opts)`
+4. Inject the MessageService into your controllers, directives, or other services `yourApp.controller('myCtrl', ['$scope', 'MessageService', function($scope, MessageService){...}])`
+
+5. Broadcast a message by calling `MessageService.broadcast('This is an awesome message', opts)`
 
 Opts can be ommited and I currently only support setting `{important: true}`
 
