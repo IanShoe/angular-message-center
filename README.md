@@ -9,7 +9,7 @@ Use Steps:
 
 1. bower install angular-message-center
 
-2. Add the `<script>` tag on your index.html
+2. Add the `<script>` tag and `<link>` on your index.html
 
 3. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['MessageCenter']);`
 
