@@ -1,4 +1,4 @@
-Angular-Message-Center
+angular-message-center
 ======================
 
 Easy Angular Notification Center
