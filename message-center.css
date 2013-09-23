@@ -1,0 +1,154 @@
+.message-center-regular, .message-center-important, .message-box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.message-center-regular, .message-center-important {
+	position:fixed;
+	z-index: 2000;
+}
+
+.message-center-regular {
+	bottom: 10px;
+	left: 10px;
+	color: black;
+}
+
+/*How do I make it so it doesn't span the entire distance but still remain centered*/
+.message-center-important{
+	top: 60px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	color: black;
+}
+
+.message-center-important > .message-box{
+	margin: auto;
+	margin-bottom: 5px;
+}
+
+.message-box {
+	background: #efefef;
+	border :2px solid #aaa;
+	border-radius: 15px;
+	font-size: 16px;
+	font-weight: 500;
+	margin-bottom: 5px;
+	overflow: hidden;
+	padding: 5px 10px;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 250px;
+
+	-webkit-animation: messageAnimation 3s ease;
+	-moz-animation: messageAnimation 3s ease;
+	-o-animation: messageAnimation 3s ease;
+}
+/*Desktop*/
+@media (min-width: 980px){
+
+	.message-box.large {
+		width: 500px;
+	}
+
+	.message-box.small {
+		width: 200px;
+	}
+}
+
+/*Tablet*/
+@media (min-width: 768px) and (max-width: 979px) {
+
+	.message-box.large {
+		width: 400px;
+	}
+
+	.message-box.small {
+		width: 150px;
+	}
+}
+
+/*Phone*/
+@media(max-width: 767px) {
+
+	.message-center-regular {
+		bottom: 5px;
+		left: 5px;
+		right: 5px;
+	}
+
+	.message-box {
+		font-size: 12px;
+		width: 100%;
+		line-height: 20px;
+	}
+
+	.message-box.large {
+		width: 100%;
+	}
+
+	.message-box.small {
+		width: 150px;
+	}
+}
+
+.message-animation.ng-enter, .message-animation.ng-leave {
+	position:relative;
+}
+
+.message-animation.ng-enter {
+	-webkit-animation: 0.5s messageAnimation-enter;
+	-moz-animation: 0.5s messageAnimation-enter;
+	-o-animation: 0.5s messageAnimation-enter;
+	animation: 0.5s messageAnimation-enter;
+}
+
+.message-animation.ng-leave {
+	-webkit-animation: 0.5s messageAnimation-leave;
+	-moz-animation: 0.5s messageAnimation-leave;
+	-o-animation: 0.5s messageAnimation-leave;
+	animation: 0.5s messageAnimation-leave;
+}
+
+@keyframes messageAnimation-enter {
+	from {opacity: 0}
+	to {opacity: 1;}
+}
+
+@keyframes messageAnimation-leave {
+	from {opacity: 1;}
+	to {opacity: 0}
+}
+
+@-webkit-keyframes messageAnimation-enter {
+	from {opacity: 0}
+	to {opacity: 1;}
+}
+
+@-webkit-keyframes messageAnimation-leave {
+	from {opacity: 1;}
+	to {opacity: 0}
+}
+
+@-moz-keyframes messageAnimation-enter {
+	from {opacity: 0}
+	to {opacity: 1;}
+}
+
+@-moz-keyframes messageAnimation-leave {
+	from {opacity: 1;}
+	to {opacity: 0}
+}
+
+@-o-keyframes messageAnimation-enter {
+	from {opacity: 0}
+	to {opacity: 1;}
+}
+
+@-o-keyframes messageAnimation-leave {
+	from {opacity: 1;}
+	to {opacity: 0}
+}
