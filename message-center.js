@@ -1,4 +1,4 @@
-angular.module('MessageCenter', []).
+angular.module('MessageCenter', ['ngAnimate']).
 factory('MessageService', function ($rootScope) {
     var counter = 0;
 

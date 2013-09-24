@@ -2,5 +2,7 @@
   "name": "angular-message-center",
   "version": "0.0.8",
   "main": "./message-center.js",
-  "dependencies": {}
+  "dependencies": {
+    "angular-animate": "~1.2.0-rc.2" 
+  }
 }
