@@ -13,11 +13,13 @@ Use Steps:
 
 3. The message center uses ngAnimate so include `<script src="bower_components/angular-animate/angular-animate.js">` on your index.html as well.
 
-4. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['MessageCenter']);`
+4. Add the directive html to your page `<message-center></message-center>` usually at the end of body.
 
-5. Inject the MessageService into your controllers, directives, or other services `yourApp.controller('myCtrl', ['$scope', 'MessageService', function($scope, MessageService){...}])`
+5. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['MessageCenter']);`
 
-6. Broadcast a message by calling `MessageService.broadcast('This is an awesome message', opts)`
+6. Inject the MessageService into your controllers, directives, or other services `yourApp.controller('myCtrl', ['$scope', 'MessageService', function($scope, MessageService){...}])`
+
+7. Broadcast a message by calling `MessageService.broadcast('This is an awesome message', opts)`
 
 Opts can be ommited and I currently only support setting `{important: true}`
 
