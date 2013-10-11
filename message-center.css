@@ -47,6 +47,25 @@
 	-moz-animation: messageAnimation 3s ease;
 	-o-animation: messageAnimation 3s ease;
 }
+
+button.close {
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	filter: alpha(opacity=20);
+	float: right;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	opacity: 0.2;
+	padding: 0;
+	-webkit-appearance: none;
+}
+
+button.close:hover {
+	opacity: .5;
+}
+
 /*Desktop*/
 @media (min-width: 980px){
 
