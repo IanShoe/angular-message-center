@@ -1,17 +1,17 @@
-angular.module('MessageCenter', ['ngAnimate']).
+angular.module('MessageCenter', ['ngAnimate','template/message-center/message.html', 'template/message-center/message-center.html']).
 factory('MessageService', function ($rootScope) {
-    var counter = 0;
-
+    
     var MessageService = {};
     MessageService.config = {
         disabled: false
     };
 
     var history = [];
+    var counter = 0;
 
     MessageService.configure = function(config){
         this.config.disabled = angular.isDefined(config.disabled) ? config.disabled : this.config.disabled;
-    }
+    };
 
     MessageService.broadcast = function (message, opts) {
         if(!this.config.disabled){
@@ -37,7 +37,7 @@ factory('MessageService', function ($rootScope) {
             $rootScope.$broadcast('MessageService.broadcast', messageItem);
         }
         else {
-            console.log('Message Service Disabled for message: '+ message);
+            console.log('Message service disabled for message: '+ message);
         }
     };
 
@@ -48,7 +48,7 @@ factory('MessageService', function ($rootScope) {
     MessageService.clearHistory = function(){
         history = [];
         counter = 0;
-    }
+    };
     
     return MessageService;
 }).
@@ -56,14 +56,7 @@ directive('messageCenter', function ($timeout) {
     return {
         restrict: 'E',
         scope: {},
-        template:   '<span>' +
-                        '<span class="message-center-important">' +
-                            '<message ng-repeat="messageItem in impMessageItems" class="message-animation"></message>' +
-                        '</span>' +
-                        '<span class="message-center-regular">' +
-                            '<message ng-repeat="messageItem in messageItems" class="message-animation"></message>' +
-                        '</span>' +
-                    '<span>',
+        templateUrl: 'template/message-center/message-center.html',
         controller: function ($scope, $attrs, MessageService) {
             $scope.messageItems =  [];
             $scope.impMessageItems =  [];
@@ -76,7 +69,7 @@ directive('messageCenter', function ($timeout) {
             $scope.removeItem = function (message){
                 $scope.$emit('MessageService.remove', message);
                 message.type ? remove($scope.impMessageItems, message) : remove($scope.messageItems, message);
-            }
+            };
 
             function remove(array, item){
                 var index = array.indexOf(item);
@@ -84,7 +77,7 @@ directive('messageCenter', function ($timeout) {
                     array.splice(index, 1);
                 }
                 return array;
-            }
+            };
         }
     };
 }).
@@ -92,9 +85,6 @@ directive('message', function () {
     return {
         replace: true,
         restrict: 'E',
-        template:   '<div class="message-box" ng-class="messageItem.class">' +
-                        '<button type="button" class="close" aria-hidden="true" ng-click="removeItem(messageItem)">&times;</button>' +
-                        '<span class="message-item">{{messageItem.message}}</span>' +
-                    '</div>'
+        templateUrl: 'template/message-center/message.html'
     };
 });
