@@ -89,6 +89,11 @@ directive('messageCenter', function ($timeout) {
                 }
             });
 
+            $scope.removeItem = function(message){
+                // Maybe have a reference to the timeout on message for easier cancelling
+                message.type ? remove($scope.impMessages, message) : remove($scope.messages, message);
+            }
+
             function processQueue(q, list){
                 if(q.length == 0){
                     return;
@@ -103,7 +108,7 @@ directive('messageCenter', function ($timeout) {
                         console.log('about to add' + nextMsg.id);
                         $timeout(function(){
                             processQueue(q, list);
-                        }, 400);
+                        }, 300);
                     }
                 }, nextMsg.timeout);
             }
