@@ -57,27 +57,33 @@ factory('MessageService', function ($rootScope) {
     
     return MessageService;
 }).
-directive('messageCenter', function ($timeout) {
+directive('messageCenter', function ($timeout, MessageService) {
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'template/message-center/message-center.html',
-        controller: function ($scope, $attrs, MessageService) {
+        controller: function($scope){
+            $scope.removeItem = function(message){
+                // Maybe have a reference to the timeout on message for easier cancelling
+                message.type ? remove($scope.impMessages, message) : remove($scope.messages, message);
+            }
+        },
+        link: function (scope) {
 
-            $scope.messages =  [];
-            $scope.impMessages =  [];
+            scope.messages =  [];
+            scope.impMessages =  [];
             var queue = [];
             var impQueue = [];
 
-            $scope.$on('MessageService.broadcast', function (event, message) {
+            scope.$on('MessageService.broadcast', function (event, message) {
                 var q, list;
                 if(message.type){
                     q = impQueue;
-                    list = $scope.impMessages;
+                    list = scope.impMessages;
                 }
                 else {
                     q = queue;
-                    list = $scope.messages;
+                    list = scope.messages;
                 }
                 q.push(message);
                 if(list.length < MessageService.config.max && q.length == 1){
@@ -88,11 +94,6 @@ directive('messageCenter', function ($timeout) {
                     console.log('saved '+ message.id + ' to queue');
                 }
             });
-
-            $scope.removeItem = function(message){
-                // Maybe have a reference to the timeout on message for easier cancelling
-                message.type ? remove($scope.impMessages, message) : remove($scope.messages, message);
-            }
 
             function processQueue(q, list){
                 if(q.length == 0){
@@ -112,15 +113,14 @@ directive('messageCenter', function ($timeout) {
                     }
                 }, nextMsg.timeout);
             }
-
-            function remove(array, item){
-                var index = array.indexOf(item);
-                if(index != -1){
-                    array.splice(index, 1);
-                }
-                return array;
-            };
         }
+    };
+    function remove(array, item){
+        var index = array.indexOf(item);
+        if(index != -1){
+            array.splice(index, 1);
+        }
+        return array;
     };
 }).
 directive('message', function () {
