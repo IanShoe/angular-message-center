@@ -6,7 +6,7 @@
 
 .message-center-regular, .message-center-important {
 	position:fixed;
-	z-index: 2000;
+	z-index: 5000;
 }
 
 .message-center-regular {
@@ -15,6 +15,7 @@
 	width: 20%;
 }
 
+/*How do I make it so it doesn't span the entire distance but still remain centered for responsive effect*/
 .message-center-important{
 	top: 60px;
 	left: 40%;
@@ -113,7 +114,13 @@ button.close:hover {
 		bottom: 5px;
 		left: 5px;
 		right: 5px;
-		width: 100%;
+		width: auto;
+	}
+
+	.message-center-important {
+		width: auto;
+		left: 5px;
+		right: 5px;
 	}
 
 	.message-box .message {
