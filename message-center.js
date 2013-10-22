@@ -103,7 +103,7 @@ directive('messageCenter', function ($timeout) {
                         console.log('about to add' + nextMsg.id);
                         $timeout(function(){
                             processQueue(q, list);
-                        }, 300);
+                        }, 400);
                     }
                 }, nextMsg.timeout);
             }
