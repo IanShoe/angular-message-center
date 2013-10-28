@@ -22,7 +22,7 @@ Installation
 
 1. bower install angular-message-center
 
-2. Add the script tag `<script src="bower_components/angular-message-center/dist/message-center.js">` or alternatively the min file `<script src="bower_components/angular-message-center/message-center.min.js">` and `<link href="bower_components/angular-message-center/message-center.css">` on your index.html
+2. Add the script tag `<script src="bower_components/angular-message-center/dist/message-center.js">` or alternatively the min file `<script src="bower_components/angular-message-center/dist/message-center.min.js">` and `<link href="bower_components/angular-message-center/message-center.css">` on your index.html
 
 3. The message center uses ngAnimate so include `<script src="bower_components/angular-animate/angular-animate.js">` on your index.html as well.
 
