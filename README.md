@@ -1,4 +1,4 @@
-angular-message-center
+angular-message-center [![Build Status](https://travis-ci.org/IanShoe/angular-message-center.png?branch=master)](https://travis-ci.org/IanShoe/angular-message-center)
 ======================
 
 Easy Angular Notification Center

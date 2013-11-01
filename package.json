@@ -2,15 +2,15 @@
   "name": "angular-message-center",
   "version": "0.1.0",
   "description": "Awesome Angular Notification Center",
-  "main": "Gruntfile.js",
+  "main": "message-center.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/IanShoe/angular-message-center.git"
   },
   "keywords": [
-    "Message",
-    "Notification",
-    "Angular"
+    "message",
+    "notification",
+    "angular"
   ],
   "author": "Ian Shoemaker",
   "license": "MIT",
@@ -34,8 +34,5 @@
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.4",
     "grunt-karma": "~0.6.2"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   }
 }
