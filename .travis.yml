@@ -3,7 +3,12 @@ node_js:
   - "0.11"
   - "0.10"
 before_script:
+  - sh -e /etc/init.d/xvfb start
+  - export DISPLAY=:99.0
+  - echo $PHANTOMJS_BIN
   - npm install -g grunt-cli
   - npm install -g bower
   - bower install
+
+script:
   - grunt
