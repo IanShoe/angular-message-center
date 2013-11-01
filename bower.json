@@ -1,8 +1,21 @@
 {
   "name": "angular-message-center",
-  "version": "0.2.0",
-  "main": "./message-center.js",
+  "version": "1.0.0",
+  "main": "message-center.js",
   "dependencies": {
     "angular-animate": "~1.2.0-rc.2" 
-  }
+  },
+   "keywords": [
+    "angular",
+    "message",
+    "notification"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
