@@ -26,10 +26,16 @@ module.exports = function (grunt) {
 				browser: true
 			}
 		},
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                runnerPort: 9876,
+                singleRun: true,
+                reporters: ['progress'],
+                browsers: ['PhantomJS']
+            }
+        },
 		uglify: {
-			// options {
-			// 	mangle: false
-			// },
 			build: {
 				src: 'dist/message-center.js',
 				dest: 'dist/message-center.min.js'
@@ -42,6 +48,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-karma');
 
-	grunt.registerTask('default', ['clean', 'jshint', 'concat', 'uglify'])
+	grunt.registerTask('default', ['clean', 'jshint', 'karma', 'concat', 'uglify'])
 }
