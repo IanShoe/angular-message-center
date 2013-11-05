@@ -1,4 +1,14 @@
 angular.module('MessageCenter', ['ngAnimate','template/message-center/message.html', 'template/message-center/message-center.html']).
+run(['$document', '$compile', '$rootScope', function($document, $compile, $rootScope){
+
+    // keep this if check for backwards compatibility for now
+    if(!$document.find('message-center').length){
+        // Compile message-center element
+        var messageCenterElem = $compile('<message-center></message-center>')($rootScope);
+        // Add element to body
+        $document.find('body').append(messageCenterElem);
+    }
+}]).
 factory('MessageService', ['$rootScope', function ($rootScope) {
 
     var MessageService = {};
