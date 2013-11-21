@@ -33,3 +33,7 @@ Installation
 6. Broadcast a message by calling `MessageService.broadcast('This is an awesome message', opts)`
 
 You can view a demo of my module [here](http://develementz.com/module)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/IanShoe/angular-message-center/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
