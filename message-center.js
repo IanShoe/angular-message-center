@@ -19,6 +19,7 @@ factory('MessageService', ['$rootScope', function ($rootScope) {
     };
 
     var history = [];
+    var disabledHistory = [];
     var counter = 0;
 
     MessageService.configure = function(config){
@@ -52,12 +53,16 @@ factory('MessageService', ['$rootScope', function ($rootScope) {
             $rootScope.$broadcast('MessageService.broadcast', message);
         }
         else {
-            console.log('Message service disabled for message: '+ msg);
+            disabledHistory.push({message:msg, opts:opts});
         }
     };
 
     MessageService.getHistory = function(){
         return history;
+    }
+
+    MessageService.getDisabledHistory = function(){
+        return disabledHistory;
     }
 
     MessageService.clearHistory = function(){
@@ -100,9 +105,6 @@ directive('messageCenter', ['$timeout', 'MessageService', function ($timeout, Me
                     // if it's the first item and the max hasn't been hit yet, then start processing
                     processQueue(q, list);
                 }
-                else{
-                    console.log('saved '+ message.id + ' to queue');
-                }
             });
 
             function processQueue(q, list){
@@ -111,12 +113,10 @@ directive('messageCenter', ['$timeout', 'MessageService', function ($timeout, Me
                 }
                 var nextMsg = q.shift();
                 list.push(nextMsg);
-                console.log('adding message ' + nextMsg.id);
                 
                 $timeout(function(){
                     remove(list, nextMsg);
                     if(q.length > 0){
-                        console.log('about to add' + nextMsg.id);
                         $timeout(function(){
                             processQueue(q, list);
                         }, 300);
