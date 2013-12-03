@@ -11,6 +11,12 @@ module.exports = function (grunt) {
 				dest: 'dist/message-center.js'
 			}
 		},
+		copy: {
+            main: {
+                src: 'message-center.css',
+                dest: 'dist/'
+            }
+        },
 		jshint: {
 			options:{
 				curly: true,
@@ -50,6 +56,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-karma');
 
-	grunt.registerTask('default', ['clean', 'jshint', 'karma', 'concat', 'uglify']);
+	grunt.registerTask('default', ['clean', 'jshint', 'karma', 'concat', 'uglify', 'copy']);
 	grunt.registerTask('test', ['karma']);
 }
