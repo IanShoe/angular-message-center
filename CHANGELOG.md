@@ -1,5 +1,5 @@
 <a name="1.0.2"></a>
-# 1.0.2  (2013-12-03)
+# 1.0.2 Coffee Correction (2013-12-03)
 
 ## Features
 

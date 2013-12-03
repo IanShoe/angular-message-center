@@ -1,6 +1,4 @@
-angular-message-center [![Build Status](https://travis-ci.org/IanShoe/angular-message-center.png?branch=master)](https://travis-ci.org/IanShoe/angular-message-center)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/IanShoe/angular-message-center/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+angular-message-center [![Build Status](https://travis-ci.org/IanShoe/angular-message-center.png?branch=master)](https://travis-ci.org/IanShoe/angular-message-center)[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/IanShoe/angular-message-center/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 ======================
 
 Easy Angular Notification Center
