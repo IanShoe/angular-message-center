@@ -1,8 +1,8 @@
 angular.module('MessageCenter', ['ngAnimate','template/message-center/message.html', 'template/message-center/message-center.html']).
-run(['$document', '$compile', '$rootScope', function($document, $compile, $rootScope){
+run(['$document', '$compile', '$rootScope', function($document, $compile, $rootScope) {
 
-    // keep this if check for backwards compatibility for now
-    if(!$document.find('message-center').length){
+    // keep this check for backwards compatibility for now
+    if (!$document.find('message-center').length) {
         // Compile message-center element
         var messageCenterElem = $compile('<message-center></message-center>')($rootScope);
         // Add element to body
@@ -22,7 +22,7 @@ factory('MessageService', ['$rootScope', function ($rootScope) {
     var disabledHistory = [];
     var counter = 0;
 
-    MessageService.configure = function(config){
+    MessageService.configure = function(config) {
         //need to make sure that omitted values don't override current values
         this.config.disabled = angular.isDefined(config.disabled) ? config.disabled : this.config.disabled;
         this.config.max = angular.isDefined(config.max) ? config.max : this.config.max;
@@ -30,42 +30,71 @@ factory('MessageService', ['$rootScope', function ($rootScope) {
     };
 
     MessageService.broadcast = function (msg, opts) {
-        if(!this.config.disabled){
-            counter++;
-            var message = {
-                classes: [],
-                message: msg,
-                id: counter,
-                timeout: MessageService.config.timeout
-            };
-            if(opts){
-                if(opts.important){
-                    message.type = 'important';
-                }
-                if(opts.color){
-                    message.classes.push(opts.color);
-                }
-                if(angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)){
-                    message.timeout = opts.timeout;
-                }
-            }
-            history.push(message);
-            $rootScope.$broadcast('MessageService.broadcast', message);
-        }
-        else {
+        if (this.config.disabled) {
             disabledHistory.push({message:msg, opts:opts});
+            return;
         }
+        counter++;
+        var message = {
+            classes: [],
+            message: msg,
+            id: counter,
+            timeout: MessageService.config.timeout
+        };
+        if (opts) {
+            if (opts.important) {
+                message.type = 'important';
+            }
+            if (opts.color) {
+                message.classes.push(opts.color);
+            }
+            if (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) {
+                message.timeout = opts.timeout;
+            }
+        }
+        history.push(message);
+        $rootScope.$broadcast('MessageService.broadcast', message);
     };
 
-    MessageService.getHistory = function(){
+    MessageService.info = function(msg, opts) {
+        opts.color = 'info';
+        this.broadcast(msg, opts);
+    }
+
+    MessageService.danger = function(msg, opts) {
+        opts.color = 'danger';
+        this.broadcast(msg, opts);
+    }
+
+    MessageService.error = function(msg, opts) {
+        opts.color = 'danger';
+        this.broadcast(msg, opts);
+    }
+
+    MessageService.success = function(msg, opts) {
+        opts.color = 'success';
+        this.broadcast(msg, opts);
+    }
+
+    MessageService.warn = function(msg, opts) {
+        opts.color = 'warning';
+        this.broadcast(msg, opts);
+    }
+
+    MessageService.warning = function(msg, opts) {
+        opts.color = 'warning';
+        this.broadcast(msg, opts);
+    }
+
+    MessageService.getHistory = function() {
         return history;
     }
 
-    MessageService.getDisabledHistory = function(){
+    MessageService.getDisabledHistory = function() {
         return disabledHistory;
     }
 
-    MessageService.clearHistory = function(){
+    MessageService.clearHistory = function() {
         history = [];
         counter = 0;
     };
@@ -77,8 +106,8 @@ directive('messageCenter', ['$timeout', 'MessageService', function ($timeout, Me
         restrict: 'E',
         scope: {},
         templateUrl: 'template/message-center/message-center.html',
-        controller: ['$scope', function($scope){
-            $scope.removeItem = function(message){
+        controller: ['$scope', function($scope) {
+            $scope.removeItem = function(message) {
                 // Maybe have a reference to the timeout on message for easier cancelling
                 message.type ? remove($scope.impMessages, message) : remove($scope.messages, message);
             }
@@ -92,7 +121,7 @@ directive('messageCenter', ['$timeout', 'MessageService', function ($timeout, Me
 
             scope.$on('MessageService.broadcast', function (event, message) {
                 var q, list;
-                if(message.type){
+                if (message.type) {
                     q = impQueue;
                     list = scope.impMessages;
                 }
@@ -101,33 +130,33 @@ directive('messageCenter', ['$timeout', 'MessageService', function ($timeout, Me
                     list = scope.messages;
                 }
                 q.push(message);
-                if(list.length < MessageService.config.max && q.length == 1){
-                    // if it's the first item and the max hasn't been hit yet, then start processing
+                if (list.length < MessageService.config.max && q.length == 1) {
+                    // if it's the first item in queue and the max hasn't been hit yet, then start processing
                     processQueue(q, list);
                 }
             });
 
-            function processQueue(q, list){
-                if(q.length == 0){
+            function processQueue(q, list) {
+                if (q.length == 0) {
                     return;
                 }
                 var nextMsg = q.shift();
                 list.push(nextMsg);
                 
-                $timeout(function(){
+                $timeout(function() {
                     remove(list, nextMsg);
-                    if(q.length > 0){
-                        $timeout(function(){
+                    if (q.length > 0) {
+                        $timeout(function() {
                             processQueue(q, list);
-                        }, 300);
+                        }, nextMsg.timeout);
                     }
                 }, nextMsg.timeout);
             }
         }
     };
-    function remove(array, item){
+    function remove(array, item) {
         var index = array.indexOf(item);
-        if(index != -1){
+        if (index != -1) {
             array.splice(index, 1);
         }
         return array;
