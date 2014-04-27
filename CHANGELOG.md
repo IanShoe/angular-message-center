@@ -1,3 +1,10 @@
+<a name="1.0.3"></a>
+# 1.0.3 Teeming Caravan (2014-04-27)
+
+## Features
+
+- service now provides convenience methods: .info, .danger, .error, .success, .warn(ing)
+
 <a name="1.0.2"></a>
 # 1.0.2 Coffee Correction (2013-12-03)
 
