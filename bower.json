@@ -1,11 +1,11 @@
 {
   "name": "angular-message-center",
   "version": "1.0.3",
-  "main": "message-center.js",
+  "main": ["dist/message-center.js", "dist/message-center.css"],
   "dependencies": {
     "angular-animate": "~1.2.0-rc.2"
   },
-   "keywords": [
+  "keywords": [
     "angular",
     "message",
     "notification"
