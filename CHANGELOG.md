@@ -1,3 +1,10 @@
+<a name="1.0.4"></a>
+# 1.0.4 Good Citizen (2015-01-25)
+
+## Features
+
+- specify main files correctly in bower.json (wiredep compatible)
+
 <a name="1.0.3"></a>
 # 1.0.3 Teeming Caravan (2014-04-27)
 
