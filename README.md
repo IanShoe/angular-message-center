@@ -31,5 +31,3 @@ Installation
 5. Inject the MessageService into your controllers, directives, or other services `yourApp.controller('myCtrl', ['$scope', 'MessageService', function($scope, MessageService){...}])`
 
 6. Broadcast a message by calling `MessageService.broadcast('This is an awesome message', opts)`
-
-You can view a demo of my module [here](http://develementz.com/module)
