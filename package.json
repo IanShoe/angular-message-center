@@ -1,6 +1,6 @@
 {
   "name": "angular-message-center",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "Awesome Angular Notification Center",
   "main": "message-center.js",
   "repository": {

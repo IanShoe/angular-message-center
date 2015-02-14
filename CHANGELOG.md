@@ -1,4 +1,11 @@
 <a name="1.0.4"></a>
+# 1.0.4 Gated Gondola (2015-02-14)
+
+## Features
+
+- update bower dependancies
+
+<a name="1.0.4"></a>
 # 1.0.4 Good Citizen (2015-01-25)
 
 ## Features
