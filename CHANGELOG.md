@@ -1,5 +1,5 @@
-<a name="1.0.4"></a>
-# 1.0.4 Gated Gondola (2015-02-14)
+<a name="1.0.5"></a>
+# 1.0.5 Gated Gondola (2015-02-14)
 
 ## Features
 
