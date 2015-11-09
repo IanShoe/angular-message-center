@@ -1,3 +1,15 @@
+<a name="1.2.0"></a>
+# 1.0.5 Enigmatic Opposition (2015-02-14)
+
+## Features
+
+- updated dependencies
+- using gulp
+- module to include is now called 'message-center'
+- removed backwards compatability with pages that already included <message-center></message-center> (simply remove from main page to fix)
+- MessageService is now stand alone and can facilitate other modules using it
+- MessageCenter now utilizes MessageService as if it were a 3rd party plugin
+
 <a name="1.0.5"></a>
 # 1.0.5 Gated Gondola (2015-02-14)
 
