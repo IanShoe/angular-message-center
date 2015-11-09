@@ -1,81 +1,85 @@
-var fs = require('fs');
+var concat = require('gulp-concat');
+var del = require('del');
+var es = require('event-stream');
 var gulp = require('gulp');
+var html2js = require('gulp-ng-html2js');
+var minifyCSS = require('gulp-minify-css');
+var minifyHtml = require('gulp-minify-html');
+var ngAnnotate = require('gulp-ng-annotate');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
 
 var pkg = {
-  name: 'angular-message-center',
+  name: 'message-center',
   bower: 'bower_components/',
   dist: 'dist',
   build: 'build'
 };
 
 pkg.paths = {
-  cssMaps: [
-    pkg.bower + 'bootstrap/dist/css/bootstrap.css.map',
-    pkg.bower + 'fontawesome/css/font-awesome.css.map'
-  ],
-  baseHtml: ['src/index.html'],
-  baseSass: ['src/scss/app.scss'],
   bowerDirectory: 'bower_components',
   bowerFile: 'bower.json',
   dist: {
     css: pkg.dist + '/css',
-    fonts: pkg.dist + '/fonts',
-    js: pkg.dist + '/js',
-    docs: pkg.dist + '/docs'
+    js: pkg.dist + '/js'
   },
-  docs: {
-    sources: 'user-docs-sources',
-    pdfBuild: pkg.build + '/docs/pdf',
-    appBuild: pkg.build + '/docs/app',
-    products: [
-      pkg.build + '/docs/app/**/*.png'
-    ],
-    pdfs: pkg.build + '/docs/app/**/*.pdf'
-  },
-  i18n: {
-    strings: 'lang',
-    stringsSrc: 'lang/*.strings',
-    dictionary: pkg.build + '/i18n',
-  },
-  fonts: [
-    pkg.bower + 'bootstrap/fonts/*',
-    pkg.bower + 'fontawesome/fonts/*'
-  ],
-  js: [
-    'src/**/*.js',
-    pkg.build + '/docs/**/*.js',
-    pkg.build + '/i18n/**/*.js'
-  ],
-  sass: [
-    'src/scss/*.scss'
-  ],
-  templates: [
-    'src/app/**/*.html',
-    pkg.build + '/docs/**/*.html'
-  ]
+  js: ['src/js/*.js'],
+  css: ['src/css/*.css'],
+  templates: ['src/html/*.html']
 };
 
-pkg.paths = require('./gulp/util/build-paths')(pkg.paths);
+gulp.task('clean', function() {
+  return del([pkg.dist]);
+});
 
-var tasks = fs.readdirSync('./gulp/tasks/');
-tasks.forEach(function(task) {
-  require('./gulp/tasks/' + task)(pkg);
+gulp.task('clean-js', function() {
+  return del([pkg.paths.dist.js]);
+});
+
+gulp.task('clean-css', function() {
+  return del([pkg.paths.dist.css]);
+});
+
+gulp.task('build-js', ['clean-js'], function() {
+  var templateStream = gulp.src(pkg.paths.templates)
+    .pipe(minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(html2js({
+      moduleName: pkg.name + '.templates',
+      prefix: 'templates/message-center/',
+      stripPrefix: 'src/html/'
+    }));
+
+  var jsStream = gulp.src(pkg.paths.js);
+
+  return es.merge(templateStream, jsStream)
+    .pipe(ngAnnotate())
+    .pipe(concat(pkg.name + '.js'))
+    .pipe(gulp.dest(pkg.paths.dist.js))
+    .pipe(rename(pkg.name + '.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(pkg.paths.dist.js));
+});
+
+gulp.task('build-css', ['clean-css'], function() {
+  return gulp.src(pkg.paths.css)
+    .pipe(concat(pkg.name + '.css'))
+    .pipe(gulp.dest(pkg.paths.dist.css))
+    .pipe(rename(pkg.name + '.min.css'))
+    .pipe(minifyCSS())
+    .pipe(gulp.dest(pkg.paths.dist.css));
+});
+
+gulp.task('watches', function() {
+  gulp.watch([pkg.paths.js, pkg.paths.templates], ['build-js']);
+  gulp.watch([pkg.paths.css], ['build-css']);
 });
 
 // Build tasks
-gulp.task('build-app', ['build-js', 'build-css', 'docs-app', 'i18n']);
-gulp.task('build-vendor', ['build-vendor-js', 'build-vendor-css']);
-gulp.task('build', ['build-app', 'build-vendor', 'copies', 'copy-doc-pdfs', 'docs']);
-gulp.task('copies', ['copy-base-html', 'copy-doc-assets', 'copy-css-maps', 'copy-fonts']);
-gulp.task('i18n', ['build-dictionary', 'process-dictionary']);
-
-// Docs tasks
-gulp.task('docs-app', ['build-client-docs', 'build-docs-indexes']);
-gulp.task('docs', ['docs-app', 'generate-docs-pdfs']);
-
-// Collect user-facing strings for i18n
-gulp.task('gen-strings', ['scan-strings', 'write-source-dict']);
+gulp.task('build', ['build-js', 'build-css']);
 
 // Dev tasks
-gulp.task('default', ['build', 'connect', 'watches']);
-gulp.task('fast', ['build-app', 'connect', 'copies', 'watches']);
+gulp.task('default', ['build', 'watches']);

@@ -12,9 +12,7 @@
   left: 10px;
   width: 20%;
 }
-
 /*How do I make it so it doesn't span the entire distance but still remain centered for responsive effect*/
-
 .message-center-important {
   top: 60px;
   left: 40%;

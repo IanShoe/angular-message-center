@@ -1,9 +1,9 @@
 {
   "name": "angular-message-center",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": [
-    "dist/message-center.js",
-    "dist/message-center.css"
+    "dist/js/message-center.js",
+    "dist/css/message-center.css"
   ],
   "dependencies": {
     "angular": "~1.4.7",

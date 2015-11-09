@@ -1,37 +1,80 @@
-angular.module('message.item', []);
-angular.module('message.service', ['message.item']);
+angular.module('message-center.service', []);
 
-angular.module('message.center', [
+angular.module('message-center', [
   'ngAnimate',
-  'message.service'
+  'message-center.service',
+  'message-center.templates'
 ])
 
-.run(['$document', '$compile', '$rootScope', function($document, $compile, $rootScope) {
-  // Compile message-center element
+.run(function($compile, $document, $rootScope) {
   var messageCenterElem = $compile('<message-center></message-center>')($rootScope);
-  // Add element to body
   $document.find('body').append(messageCenterElem);
-}]);
+})
 
-.directive('messageCenter', ['$timeout', 'MessageService', function($timeout, MessageService) {
+.directive('messageCenter', function($timeout, MessageService) {
+
+  function removeById(array, item) {
+    var index;
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].id === item.id) {
+        index = i;
+        break;
+      }
+    }
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+    return array;
+  }
+
+  function processQueue(q, list) {
+    if (q.length === 0) {
+      return;
+    }
+    var nextMsg = q.shift();
+    list.push(nextMsg);
+    $timeout(function() {
+      removeById(list, nextMsg);
+      if (q.length > 0) {
+        $timeout(function() {
+          processQueue(q, list);
+        }, nextMsg.timeout);
+      }
+    }, nextMsg.timeout);
+  }
+
+  var counter = 0;
+
   return {
     restrict: 'E',
     scope: {},
-    templateUrl: 'template/message-center/message-center.html',
-    controller: ['$scope', function($scope) {
+    templateUrl: 'templates/message-center/message-center.html',
+    controller: function($scope) {
       $scope.removeItem = function(message) {
         // Maybe have a reference to the timeout on message for easier cancelling
-        message.type ? remove($scope.impMessages, message) : remove($scope.messages, message);
+        message.type ? removeById($scope.impMessages, message) : removeById($scope.messages, message);
       };
-    }],
+    },
     link: function(scope) {
-
       scope.messages = [];
       scope.impMessages = [];
       var queue = [];
       var impQueue = [];
-
-      scope.$on('MessageService.broadcast', function(event, message) {
+      MessageService.registerListener('broadcast', function(msg, opts) {
+        var message = {
+          classes: [],
+          message: msg,
+          id: counter++,
+          timeout: (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) ? opts.timeout : MessageService.config.timeout
+        };
+        if (opts) {
+          if (opts.important) {
+            message.type = 'important';
+          }
+          if (opts.color) {
+            message.classes.push(opts.color);
+          }
+        }
         var q, list;
         if (message.type) {
           q = impQueue;
@@ -42,35 +85,18 @@ angular.module('message.center', [
         }
         q.push(message);
         if (list.length < MessageService.config.max && q.length === 1) {
-          // if it's the first item in queue and the max hasn't been hit yet, then start processing
+          // if it's the first item in queue or the max hasn't been hit yet, then start processing
           processQueue(q, list);
         }
       });
-
-      function processQueue(q, list) {
-        if (q.length === 0) {
-          return;
-        }
-        var nextMsg = q.shift();
-        list.push(nextMsg);
-
-        $timeout(function() {
-          remove(list, nextMsg);
-          if (q.length > 0) {
-            $timeout(function() {
-              processQueue(q, list);
-            }, nextMsg.timeout);
-          }
-        }, nextMsg.timeout);
-      }
     }
   };
+})
 
-  function remove(array, item) {
-    var index = array.indexOf(item);
-    if (index !== -1) {
-      array.splice(index, 1);
-    }
-    return array;
-  }
-}]);
+.directive('messageItem', function() {
+  return {
+    replace: true,
+    restrict: 'E',
+    templateUrl: 'templates/message-center/message-item.html'
+  };
+});
