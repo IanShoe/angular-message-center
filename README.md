@@ -26,7 +26,7 @@ Installation
 
 3. The message center uses ngAnimate so include `<script src="bower_components/angular-animate/angular-animate.js">` on your index.html as well. (may need to `bower install angular-animate`)
 
-4. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['MessageCenter']);`
+4. Add the required dependancy to your app.js file `var yourApp = angular.module('your-app', ['message-center']);`
 
 5. Inject the MessageService into your controllers, directives, or other services `yourApp.controller('myCtrl', ['$scope', 'MessageService', function($scope, MessageService){...}])`
 
