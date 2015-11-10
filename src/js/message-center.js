@@ -61,6 +61,7 @@ angular.module('message-center', [
       var queue = [];
       var impQueue = [];
       MessageService.registerListener('broadcast', function(msg, opts) {
+        opts = opts || {};
         var message = {
           classes: [],
           message: msg,

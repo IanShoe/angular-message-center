@@ -61,6 +61,7 @@ angular.module('message-center', [
       var queue = [];
       var impQueue = [];
       MessageService.registerListener('broadcast', function(msg, opts) {
+        opts = opts || {};
         var message = {
           classes: [],
           message: msg,
@@ -100,18 +101,6 @@ angular.module('message-center', [
     templateUrl: 'templates/message-center/message-item.html'
   };
 });
-
-(function(module) {
-try {
-  module = angular.module('message-center.templates');
-} catch (e) {
-  module = angular.module('message-center.templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('templates/message-center/message-center.html',
-    '<span class="message-center-important"><message-item ng-repeat="message in impMessages" class="message-animation"></message-item></span> <span class="message-center-regular"><message-item ng-repeat="message in messages" class="message-animation"></message-item></span>');
-}]);
-})();
 
 angular.module('message-center.service')
 
@@ -228,6 +217,18 @@ angular.module('message-center.service')
 
   return new MessageService();
 });
+
+(function(module) {
+try {
+  module = angular.module('message-center.templates');
+} catch (e) {
+  module = angular.module('message-center.templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('templates/message-center/message-center.html',
+    '<span class="message-center-important"><message-item ng-repeat="message in impMessages" class="message-animation"></message-item></span> <span class="message-center-regular"><message-item ng-repeat="message in messages" class="message-animation"></message-item></span>');
+}]);
+})();
 
 (function(module) {
 try {
