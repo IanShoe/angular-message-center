@@ -1,12 +1,19 @@
 <a name="1.2.0"></a>
-# 1.0.5 Enigmatic Opposition (2015-02-14)
+# 1.2.1 Creature Craft (2015-10-15)
+
+## Bug Fixes
+
+- fix null opts
+
+<a name="1.2.0"></a>
+# 1.2.0 Enigmatic Opposition (2015-09-15)
 
 ## Features
 
 - updated dependencies
 - using gulp
 - module to include is now called 'message-center'
-- removed backwards compatability with pages that already included <message-center></message-center> (simply remove from main page to fix)
+- removed backwards compatibility with pages that already included <message-center></message-center> (simply remove from main page to fix)
 - MessageService is now stand alone and can facilitate other modules using it
 - MessageCenter now utilizes MessageService as if it were a 3rd party plugin
 
