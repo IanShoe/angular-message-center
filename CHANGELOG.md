@@ -1,5 +1,23 @@
+<a name="1.2.2"></a>
+# 1.3.0 Quaint Quake (2015-11-19)
+
+## Features
+
+- New Styling Graciously provided by @knassar
+- Config now supports positioning (top, bottom, left, right, centered)
+- Updated Animations
+
+## Removed Features
+
+- 'important' now removed
+
+## Bug Fixes
+
+- Fixed queue processing on item removal and better timing
+
+- fix null opts
 <a name="1.2.0"></a>
-# 1.2.1 Creature Craft (2015-10-15)
+# 1.2.1 Creature Craft (2015-11-15)
 
 ## Bug Fixes
 
