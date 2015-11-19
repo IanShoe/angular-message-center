@@ -48,6 +48,7 @@ angular.module('message-center', [
       $scope.removeItem = function(message) {
         // Maybe have a reference to the timeout on message for easier cancelling
         $scope.messages = removeById($scope.messages, message);
+        processQueue();
       };
 
       MessageService.registerListener('broadcast', function(msg, opts) {
