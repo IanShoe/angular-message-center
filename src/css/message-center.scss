@@ -9,6 +9,8 @@
 
   $baseFontSize: 16px;
 
+  $vMsgPadding: 0.75em;
+
   font-size: $baseFontSize;
 
   position: fixed;
@@ -40,8 +42,8 @@
       @include vendor-prefix('animation', 'messageAnimation 3s ease');
 
       width: 100%;
-      margin-bottom: 0.75em;
-      padding: 0.75em 1em;
+      margin-bottom: $vMsgPadding;
+      padding: $vMsgPadding 1em;
 
       &.success
       {
@@ -162,12 +164,22 @@
   }
 
 
-  .message-animation.ng-enter, .message-animation.ng-leave {
+  .message-animation.ng-enter,
+  .message-animation.ng-leave {
     position: relative;
   }
 
-  .message-animation.ng-enter {
-    @include vendor-prefix('animation', '0.25s message-fly-fade-in');
+  &.top,
+  &.centered {
+    .message-animation.ng-enter {
+      @include vendor-prefix('animation', '0.25s message-fly-fade-in');
+    }
+  }
+
+  &.bottom {
+    .message-animation.ng-enter {
+      @include vendor-prefix('animation', '0.25s message-pop-up-fade-in');
+    }
   }
 
   .message-animation.ng-leave {
@@ -195,13 +207,33 @@
   @include keyframes(message-fly-fade-out) {
     from {
       opacity: 1;
-      top: 0;
     }
     to {
       opacity: 0;
-      top: -2em;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      height: 0;
     }
   }
+
+  @include keyframes(message-pop-up-fade-in) {
+    from {
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      height: 0;
+    }
+    to {
+      opacity: 1;
+      padding-top: $vMsgPadding;
+      padding-bottom: $vMsgPadding;
+      margin-bottom: $vMsgPadding;
+      height: auto;
+    }
+  }
+
 }
 
 
