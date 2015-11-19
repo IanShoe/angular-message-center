@@ -28,7 +28,7 @@ angular.module('message-center', [
   }
 
   function processQueue(q, list) {
-    if (q.length === 0) {
+    if (q.length === 0 || list.length >= MessageService.config.max) {
       return;
     }
     var nextMsg = q.shift();
@@ -36,9 +36,7 @@ angular.module('message-center', [
     $timeout(function() {
       removeById(list, nextMsg);
       if (q.length > 0) {
-        $timeout(function() {
-          processQueue(q, list);
-        }, nextMsg.timeout);
+        processQueue(q, list);
       }
     }, nextMsg.timeout);
   }
@@ -85,11 +83,10 @@ angular.module('message-center', [
           q = queue;
           list = scope.messages;
         }
-        q.push(message);
-        if (list.length < MessageService.config.max && q.length === 1) {
-          // if it's the first item in queue or the max hasn't been hit yet, then start processing
+        scope.$apply(function() {
+          q.push(message);
           processQueue(q, list);
-        }
+        });
       });
     }
   };
