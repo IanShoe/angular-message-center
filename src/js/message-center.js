@@ -11,71 +11,65 @@ angular.module('message-center', [
   $document.find('body').append(messageCenterElem);
 })
 
-.directive('messageCenter', function($timeout, MessageService) {
+// TODO: make a MessageCenter Provider for configuration
+.directive('messageCenter', function() {
 
   function removeById(array, item) {
-    var index;
     for (var i = 0; i < array.length; i++) {
       if (array[i].id === item.id) {
-        index = i;
+        array.splice(i, 1);
         break;
       }
-    }
-    if (index !== -1) {
-      array.splice(index, 1);
     }
     return array;
   }
 
-  function processQueue(q, list) {
-    if (q.length === 0 || list.length >= MessageService.config.max) {
-      return;
-    }
-    var nextMsg = q.shift();
-    list.push(nextMsg);
-    $timeout(function() {
-      removeById(list, nextMsg);
-      if (q.length > 0) {
-        processQueue(q, list);
-      }
-    }, nextMsg.timeout);
-  }
-
-  var counter = 0;
-
   return {
-    restrict: 'E',
-    scope: {},
-    templateUrl: 'templates/message-center/message-center.html',
-    controller: function($scope) {
+    controller: function($scope, $timeout, MessageService) {
+      var counter = 0;
+      var queue = [];
+      $scope.messages = [];
+      $scope.position = MessageService.config.position;
+
+      function processQueue() {
+        if (queue.length === 0 || $scope.messages.length >= MessageService.config.max) {
+          return;
+        }
+        var nextMsg = queue.shift();
+        $scope.messages.push(nextMsg);
+        $timeout(function() {
+          removeById($scope.messages, nextMsg);
+          if (queue.length > 0) {
+            processQueue();
+          }
+        }, nextMsg.timeout);
+      }
+
       $scope.removeItem = function(message) {
         // Maybe have a reference to the timeout on message for easier cancelling
-        removeById($scope.messages, message);
+        $scope.messages = removeById($scope.messages, message);
       };
-    },
-    link: function(scope) {
-      scope.messages = [];
-      scope.position = MessageService.config.position;
-      var queue = [];
+
       MessageService.registerListener('broadcast', function(msg, opts) {
         opts = opts || {};
         var message = {
           classes: [],
-          message: msg,
           id: counter++,
+          message: msg,
           timeout: (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) ? opts.timeout : MessageService.config.timeout
         };
-        if (opts) {
-          if (opts.color) {
-            message.classes.push(opts.color);
-          }
+        if (opts && opts.color) {
+          message.classes.push(opts.color);
         }
-        scope.$apply(function() {
+        $scope.$apply(function() {
           queue.push(message);
-          processQueue(queue, scope.messages);
+          processQueue();
         });
       });
-    }
+    },
+    restrict: 'E',
+    scope: true,
+    templateUrl: 'templates/message-center/message-center.html'
   };
 })
 
@@ -83,6 +77,7 @@ angular.module('message-center', [
   return {
     replace: true,
     restrict: 'E',
+    scope: false,
     templateUrl: 'templates/message-center/message-item.html'
   };
 });
