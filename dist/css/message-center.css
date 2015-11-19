@@ -4,6 +4,7 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
   box-sizing: border-box;
+  font-size: 16px;
   position: fixed;
   z-index: 9999999;
   width: 0;
@@ -91,7 +92,7 @@
         -o-box-shadow: 0 0px 10px 3px #ddd;
         box-shadow: 0 0px 10px 3px #ddd;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1em;
         line-height: 1em;
         opacity: 0.7; }
         .message-center .messages .message-box button.close:hover {
@@ -126,6 +127,84 @@
     .message-center.bottom.right .messages .message-box {
       position: relative;
       left: -100%; }
+  .message-center .message-animation.ng-enter, .message-center .message-animation.ng-leave {
+    position: relative; }
+  .message-center .message-animation.ng-enter {
+    -webkit-animation: 0.25s message-fly-fade-in;
+    -moz-animation: 0.25s message-fly-fade-in;
+    -ms-animation: 0.25s message-fly-fade-in;
+    -o-animation: 0.25s message-fly-fade-in;
+    animation: 0.25s message-fly-fade-in; }
+  .message-center .message-animation.ng-leave {
+    -webkit-animation: 0.25s message-fly-fade-out;
+    -moz-animation: 0.25s message-fly-fade-out;
+    -ms-animation: 0.25s message-fly-fade-out;
+    -o-animation: 0.25s message-fly-fade-out;
+    animation: 0.25s message-fly-fade-out; }
+
+@-webkit-keyframes message-fly-fade-in {
+  from {
+    opacity: 0;
+    top: -2em; }
+  to {
+    opacity: 1;
+    top: 0; } }
+
+@-moz-keyframes message-fly-fade-in {
+  from {
+    opacity: 0;
+    top: -2em; }
+  to {
+    opacity: 1;
+    top: 0; } }
+
+@-o-keyframes message-fly-fade-in {
+  from {
+    opacity: 0;
+    top: -2em; }
+  to {
+    opacity: 1;
+    top: 0; } }
+
+@keyframes message-fly-fade-in {
+  from {
+    opacity: 0;
+    top: -2em; }
+  to {
+    opacity: 1;
+    top: 0; } }
+
+@-webkit-keyframes message-fly-fade-out {
+  from {
+    opacity: 1;
+    top: 0; }
+  to {
+    opacity: 0;
+    top: -2em; } }
+
+@-moz-keyframes message-fly-fade-out {
+  from {
+    opacity: 1;
+    top: 0; }
+  to {
+    opacity: 0;
+    top: -2em; } }
+
+@-o-keyframes message-fly-fade-out {
+  from {
+    opacity: 1;
+    top: 0; }
+  to {
+    opacity: 0;
+    top: -2em; } }
+
+@keyframes message-fly-fade-out {
+  from {
+    opacity: 1;
+    top: 0; }
+  to {
+    opacity: 0;
+    top: -2em; } }
 
 /*Desktop*/
 /*Tablet*/
@@ -150,100 +229,3 @@
       font-size: 0.8em;
       width: 100% !important;
       max-width: 100% !important; } }
-
-.message-animation.ng-enter, .message-animation.ng-leave {
-  position: relative; }
-
-.message-animation.ng-enter {
-  -webkit-animation: 0.5s messageAnimation-enter;
-  -moz-animation: 0.5s messageAnimation-enter;
-  -ms-animation: 0.5s messageAnimation-enter;
-  -o-animation: 0.5s messageAnimation-enter;
-  animation: 0.5s messageAnimation-enter; }
-
-.message-animation.ng-leave {
-  -webkit-animation: 0.5s messageAnimation-leave;
-  -moz-animation: 0.5s messageAnimation-leave;
-  -ms-animation: 0.5s messageAnimation-leave;
-  -o-animation: 0.5s messageAnimation-leave;
-  animation: 0.5s messageAnimation-leave; }
-
-@-webkit-keyframes messageAnimation-enter {
-  from {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; }
-  to {
-    opacity: 1;
-    height: 36px; } }
-
-@-moz-keyframes messageAnimation-enter {
-  from {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; }
-  to {
-    opacity: 1;
-    height: 36px; } }
-
-@-o-keyframes messageAnimation-enter {
-  from {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; }
-  to {
-    opacity: 1;
-    height: 36px; } }
-
-@keyframes messageAnimation-enter {
-  from {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; }
-  to {
-    opacity: 1;
-    height: 36px; } }
-
-@-webkit-keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px; }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; } }
-
-@-moz-keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px; }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; } }
-
-@-o-keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px; }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; } }
-
-@keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px; }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px; } }
