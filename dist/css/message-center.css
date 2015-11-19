@@ -1,233 +1,249 @@
-.message-center-regular, .message-center-important {
+.message-center {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
   box-sizing: border-box;
-}
-.message-center-regular, .message-center-important {
   position: fixed;
-  z-index: 5000;
-}
-.message-center-regular {
-  bottom: 10px;
-  left: 10px;
-  width: 20%;
-}
-/*How do I make it so it doesn't span the entire distance but still remain centered for responsive effect*/
-.message-center-important {
-  top: 60px;
-  left: 40%;
-  right: 40%;
-  margin: auto;
-}
-.message-center-important > .message-box {
-  margin: auto;
-  margin-bottom: 5px;
-  text-align: center;
-}
-.message-box {
-  background: #efefef;
-  border: 2px solid #aaa;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  overflow: hidden;
-  padding: 5px 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  -webkit-box-shadow: 0 0 12px #999999;
-  -moz-box-shadow: 0 0 12px #999999;
-  box-shadow: 0 0 12px #999999;
-  -webkit-animation: messageAnimation 3s ease;
-  -moz-animation: messageAnimation 3s ease;
-  -o-animation: messageAnimation 3s ease;
-}
-.message-box .message {
-  color: black;
-  font-size: 16px;
-  font-weight: 500;
-}
-.message-box.important {
-  width: 100%;
-}
-.message-box.danger {
-  background-color: #d2322d;
-  border-color: #ac2925;
-}
-.message-box.primary {
-  background-color: #428bca;
-  border-color: #357ebd;
-}
-.message-box.success {
-  background-color: #5cb85c;
-  border-color: #4cae4c;
-}
-.message-box.warning {
-  background-color: #f0ad4e;
-  border-color: #eea236;
-}
-.message-box.info {
-  background-color: #5bc0de;
-  border-color: #46b8da;
-}
-button.close {
-  padding-left: 4px;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  float: right;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none !important;
-}
-button.close:hover {
-  opacity: .5;
-}
+  z-index: 9999999;
+  width: 0;
+  background-color: green; }
+  .message-center .messages {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 20em;
+    max-width: 30em;
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+    .message-center .messages .message-box {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      -o-box-sizing: border-box;
+      box-sizing: border-box;
+      position: relative;
+      border: #eee 2px solid;
+      -webkit-border-radius: 0.25rem;
+      -moz-border-radius: 0.25rem;
+      -ms-border-radius: 0.25rem;
+      -o-border-radius: 0.25rem;
+      border-radius: 0.25rem;
+      background-color: white;
+      box-shadow: 0 2px 10px 3px #eee;
+      -webkit-animation: messageAnimation 3s ease;
+      -moz-animation: messageAnimation 3s ease;
+      -ms-animation: messageAnimation 3s ease;
+      -o-animation: messageAnimation 3s ease;
+      animation: messageAnimation 3s ease;
+      width: 100%;
+      margin-bottom: 0.75em;
+      padding: 0.75em 1em; }
+      .message-center .messages .message-box.success {
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d0e9c6; }
+      .message-center .messages .message-box.info {
+        color: #31708f;
+        background-color: #d9edf7;
+        border-color: #bcdff1; }
+      .message-center .messages .message-box.warning {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faf2cc; }
+      .message-center .messages .message-box.danger {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebcccc; }
+      .message-center .messages .message-box .message {
+        display: block;
+        overflow: hidden;
+        word-wrap: break-word;
+        color: inherit; }
+      .message-center .messages .message-box button.close {
+        position: absolute;
+        top: -0.35em;
+        right: -0.35em;
+        -webkit-appearance: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        user-select: none;
+        outline: none !important;
+        padding: 0 0 0.125em;
+        margin: 0;
+        width: 1.25em;
+        height: 1.25em;
+        cursor: pointer;
+        background: white;
+        border: none;
+        color: inherit;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 0px 10px 3px #ddd;
+        -moz-box-shadow: 0 0px 10px 3px #ddd;
+        -ms-box-shadow: 0 0px 10px 3px #ddd;
+        -o-box-shadow: 0 0px 10px 3px #ddd;
+        box-shadow: 0 0px 10px 3px #ddd;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1em;
+        opacity: 0.7; }
+        .message-center .messages .message-box button.close:hover {
+          color: #555;
+          opacity: 1;
+          -webkit-box-shadow-color: #dfdfdf;
+          -moz-box-shadow-color: #dfdfdf;
+          -ms-box-shadow-color: #dfdfdf;
+          -o-box-shadow-color: #dfdfdf;
+          box-shadow-color: #dfdfdf; }
+  .message-center.centered {
+    top: 4em;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+    height: 0; }
+    .message-center.centered .messages {
+      margin: 0 auto; }
+  .message-center.top {
+    top: 2em; }
+  .message-center.left {
+    left: 1em; }
+  .message-center.bottom {
+    bottom: 1em; }
+  .message-center.right {
+    right: 0; }
+    .message-center.right .messages {
+      position: absolute;
+      right: 1em; }
+  .message-center.bottom.right .messages {
+    position: relative; }
+    .message-center.bottom.right .messages .message-box {
+      position: relative;
+      left: -100%; }
 
 /*Desktop*/
-
-@media (min-width: 980px) {}
-
 /*Tablet*/
-
-@media (min-width: 768px) and (max-width: 979px) {}
-
 /*Phone*/
-
-@media(max-width: 767px) {
-  .message-center-regular {
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-    width: auto;
-  }
-  .message-center-important {
-    width: auto;
-    left: 5px;
-    right: 5px;
-  }
-  .message-box .message {
-    font-size: 12px;
+@media (max-width: 767px) {
+  .message-center {
+    top: 2em;
+    right: auto;
+    bottom: auto;
+    left: 0;
     width: 100%;
-    line-height: 20px;
-  }
-}
+    height: 0; }
+    .message-center .messages {
+      position: relative;
+      margin: 0 !important;
+      width: 70% !important;
+      left: 15% !important;
+      right: auto; }
+    .message-center .message-box {
+      left: auto !important;
+      right: auto !important;
+      font-size: 0.8em;
+      width: 100% !important;
+      max-width: 100% !important; } }
+
 .message-animation.ng-enter, .message-animation.ng-leave {
-  position: relative;
-}
+  position: relative; }
+
 .message-animation.ng-enter {
   -webkit-animation: 0.5s messageAnimation-enter;
   -moz-animation: 0.5s messageAnimation-enter;
+  -ms-animation: 0.5s messageAnimation-enter;
   -o-animation: 0.5s messageAnimation-enter;
-  animation: 0.5s messageAnimation-enter;
-}
+  animation: 0.5s messageAnimation-enter; }
+
 .message-animation.ng-leave {
   -webkit-animation: 0.5s messageAnimation-leave;
   -moz-animation: 0.5s messageAnimation-leave;
+  -ms-animation: 0.5s messageAnimation-leave;
   -o-animation: 0.5s messageAnimation-leave;
-  animation: 0.5s messageAnimation-leave;
-}
-@keyframes messageAnimation-enter {
-  from {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px;
-  }
-  to {
-    opacity: 1;
-    height: 36px;
-  }
-}
-@keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px;
-  }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px;
-  }
-}
+  animation: 0.5s messageAnimation-leave; }
+
 @-webkit-keyframes messageAnimation-enter {
   from {
     opacity: 0;
     padding-top: 0;
     padding-bottom: 0;
-    height: 0px;
-  }
+    height: 0px; }
   to {
     opacity: 1;
-    height: 36px;
-  }
-}
-@-webkit-keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px;
-  }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px;
-  }
-}
+    height: 36px; } }
+
 @-moz-keyframes messageAnimation-enter {
   from {
     opacity: 0;
     padding-top: 0;
     padding-bottom: 0;
-    height: 0px;
-  }
+    height: 0px; }
   to {
     opacity: 1;
-    height: 36px;
-  }
-}
-@-moz-keyframes messageAnimation-leave {
-  from {
-    opacity: 1;
-    height: 36px;
-  }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px;
-  }
-}
+    height: 36px; } }
+
 @-o-keyframes messageAnimation-enter {
   from {
     opacity: 0;
     padding-top: 0;
     padding-bottom: 0;
-    height: 0px;
-  }
+    height: 0px; }
   to {
     opacity: 1;
-    height: 36px;
-  }
-}
-@-o-keyframes messageAnimation-leave {
+    height: 36px; } }
+
+@keyframes messageAnimation-enter {
+  from {
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 0px; }
+  to {
+    opacity: 1;
+    height: 36px; } }
+
+@-webkit-keyframes messageAnimation-leave {
   from {
     opacity: 1;
-    height: 36px;
-  }
+    height: 36px; }
   to {
     opacity: 0;
     padding-top: 0;
     padding-bottom: 0;
-    height: 0px;
-  }
-}
+    height: 0px; } }
+
+@-moz-keyframes messageAnimation-leave {
+  from {
+    opacity: 1;
+    height: 36px; }
+  to {
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 0px; } }
+
+@-o-keyframes messageAnimation-leave {
+  from {
+    opacity: 1;
+    height: 36px; }
+  to {
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 0px; } }
+
+@keyframes messageAnimation-leave {
+  from {
+    opacity: 1;
+    height: 36px; }
+  to {
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 0px; } }
