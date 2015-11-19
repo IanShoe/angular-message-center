@@ -7,6 +7,10 @@
 .message-center {
   @include vendor-prefix('box-sizing', 'border-box');
 
+  $baseFontSize: 16px;
+
+  font-size: $baseFontSize;
+
   position: fixed;
   z-index: 9999999;
 
@@ -99,7 +103,7 @@
         @include vendor-prefix('box-shadow', '0 0px 10px 3px #ddd');
 
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1em;
         line-height: 1em;
 
         opacity: 0.7;
@@ -156,6 +160,48 @@
       }
     }
   }
+
+
+  .message-animation.ng-enter, .message-animation.ng-leave {
+    position: relative;
+  }
+
+  .message-animation.ng-enter {
+    @include vendor-prefix('animation', '0.25s message-fly-fade-in');
+  }
+
+  .message-animation.ng-leave {
+    @include vendor-prefix('animation', '0.25s message-fly-fade-out');
+  }
+
+  @mixin keyframes($name) {
+      @-webkit-keyframes #{$name} { @content; }
+      @-moz-keyframes #{$name} { @content; }
+      @-o-keyframes #{$name} { @content; }
+      @keyframes #{$name} { @content; }
+  }
+
+  @include keyframes(message-fly-fade-in) {
+    from {
+      opacity: 0;
+      top: -2em;
+    }
+    to {
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  @include keyframes(message-fly-fade-out) {
+    from {
+      opacity: 1;
+      top: 0;
+    }
+    to {
+      opacity: 0;
+      top: -2em;
+    }
+  }
 }
 
 
@@ -194,51 +240,6 @@
       width: 100% !important;
       max-width: 100% !important;
     }
-  }
-}
-
-.message-animation.ng-enter, .message-animation.ng-leave {
-  position: relative;
-}
-
-.message-animation.ng-enter {
-  @include vendor-prefix('animation', '0.5s messageAnimation-enter');
-}
-
-.message-animation.ng-leave {
-  @include vendor-prefix('animation', '0.5s messageAnimation-leave');
-}
-
-@mixin keyframes($name) {
-    @-webkit-keyframes #{$name} { @content; }
-    @-moz-keyframes #{$name} { @content; }
-    @-o-keyframes #{$name} { @content; }
-    @keyframes #{$name} { @content; }
-}
-
-@include keyframes(messageAnimation-enter) {
-  from {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px;
-  }
-  to {
-    opacity: 1;
-    height: 36px;
-  }
-}
-
-@include keyframes(messageAnimation-leave) {
-  from {
-    opacity: 1;
-    height: 36px;
-  }
-  to {
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 0px;
   }
 }
 
