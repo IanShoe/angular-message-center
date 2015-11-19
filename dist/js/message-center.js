@@ -50,15 +50,13 @@ angular.module('message-center', [
     controller: ["$scope", function($scope) {
       $scope.removeItem = function(message) {
         // Maybe have a reference to the timeout on message for easier cancelling
-        message.type ? removeById($scope.impMessages, message) : removeById($scope.messages, message);
+        removeById($scope.messages, message);
       };
     }],
     link: function(scope) {
       scope.messages = [];
-      scope.impMessages = [];
       scope.position = MessageService.config.position;
       var queue = [];
-      var impQueue = [];
       MessageService.registerListener('broadcast', function(msg, opts) {
         opts = opts || {};
         var message = {
@@ -68,24 +66,13 @@ angular.module('message-center', [
           timeout: (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) ? opts.timeout : MessageService.config.timeout
         };
         if (opts) {
-          if (opts.important) {
-            message.type = 'important';
-          }
           if (opts.color) {
             message.classes.push(opts.color);
           }
         }
-        var q, list;
-        if (message.type) {
-          q = impQueue;
-          list = scope.impMessages;
-        } else {
-          q = queue;
-          list = scope.messages;
-        }
         scope.$apply(function() {
-          q.push(message);
-          processQueue(q, list);
+          queue.push(message);
+          processQueue(queue, scope.messages);
         });
       });
     }
