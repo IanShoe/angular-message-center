@@ -1,4 +1,4 @@
-<a name="1.2.2"></a>
+<a name="1.3.0"></a>
 # 1.3.0 Quaint Quake (2015-11-19)
 
 ## Features
@@ -14,8 +14,8 @@
 ## Bug Fixes
 
 - Fixed queue processing on item removal and better timing
-
 - fix null opts
+
 <a name="1.2.0"></a>
 # 1.2.1 Creature Craft (2015-11-15)
 
