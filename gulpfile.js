@@ -7,6 +7,7 @@ var minifyCSS = require('gulp-minify-css');
 var minifyHtml = require('gulp-minify-html');
 var ngAnnotate = require('gulp-ng-annotate');
 var rename = require('gulp-rename');
+var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 
 var pkg = {
@@ -24,7 +25,7 @@ pkg.paths = {
     js: pkg.dist + '/js'
   },
   js: ['src/js/*.js'],
-  css: ['src/css/*.css'],
+  css: ['src/css/*.scss'],
   templates: ['src/html/*.html']
 };
 
@@ -66,7 +67,10 @@ gulp.task('build-js', ['clean-js'], function() {
 
 gulp.task('build-css', ['clean-css'], function() {
   return gulp.src(pkg.paths.css)
-    .pipe(concat(pkg.name + '.css'))
+    .pipe(sass({
+      errLogToConsole: true
+    }))
+    .pipe(rename(pkg.name + '.css'))
     .pipe(gulp.dest(pkg.paths.dist.css))
     .pipe(rename(pkg.name + '.min.css'))
     .pipe(minifyCSS())

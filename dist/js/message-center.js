@@ -58,6 +58,7 @@ angular.module('message-center', [
     link: function(scope) {
       scope.messages = [];
       scope.impMessages = [];
+      scope.position = MessageService.config.position;
       var queue = [];
       var impQueue = [];
       MessageService.registerListener('broadcast', function(msg, opts) {
@@ -102,12 +103,33 @@ angular.module('message-center', [
   };
 });
 
+(function(module) {
+try {
+  module = angular.module('message-center.templates');
+} catch (e) {
+  module = angular.module('message-center.templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('templates/message-center/message-center.html',
+    '<span class="message-center" ng-class="position"><ul class="messages"><message-item ng-repeat="message in messages" class="message-animation"></message-item></ul></span>');
+}]);
+})();
+
 angular.module('message-center.service')
 
 .factory('MessageService', function() {
 
+  var messageCenterPositions = {
+    TopLeft: "top left",
+    TopRight: "top right",
+    BottomLeft: "bottom left",
+    BottomRight: "bottom right",
+    Centered: "centered",
+  };
+
   var MessageService = function(config) {
     this.config = {
+      position: messageCenterPositions.TopRight,
       disabled: false,
       max: 3,
       timeout: 3000
@@ -124,6 +146,8 @@ angular.module('message-center.service')
     };
     angular.extend(this.config, config);
   };
+
+  MessageService.prototype.Position = messageCenterPositions;
 
   MessageService.prototype.registerListener = function(topic, fn) {
     if (topic === 'warn') {
@@ -225,19 +249,7 @@ try {
   module = angular.module('message-center.templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('templates/message-center/message-center.html',
-    '<span class="message-center-important"><message-item ng-repeat="message in impMessages" class="message-animation"></message-item></span> <span class="message-center-regular"><message-item ng-repeat="message in messages" class="message-animation"></message-item></span>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('message-center.templates');
-} catch (e) {
-  module = angular.module('message-center.templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/message-center/message-item.html',
-    '<div class="message-box" ng-class="message.classes"><span class="message">{{message.message}}</span> <button type="button" class="close" aria-hidden="true" ng-click="removeItem(message)">&times;</button></div>');
+    '<li class="message-box" ng-class="message.classes"><span class="message">{{message.message}}</span> <button type="button" class="close" aria-hidden="true" ng-click="removeItem(message)">&times;</button></li>');
 }]);
 })();

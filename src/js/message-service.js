@@ -2,8 +2,17 @@ angular.module('message-center.service')
 
 .factory('MessageService', function() {
 
+  var messageCenterPositions = {
+    TopLeft: "top left",
+    TopRight: "top right",
+    BottomLeft: "bottom left",
+    BottomRight: "bottom right",
+    Centered: "centered",
+  };
+
   var MessageService = function(config) {
     this.config = {
+      position: messageCenterPositions.TopRight,
       disabled: false,
       max: 3,
       timeout: 3000
@@ -20,6 +29,8 @@ angular.module('message-center.service')
     };
     angular.extend(this.config, config);
   };
+
+  MessageService.prototype.Position = messageCenterPositions;
 
   MessageService.prototype.registerListener = function(topic, fn) {
     if (topic === 'warn') {

@@ -58,6 +58,7 @@ angular.module('message-center', [
     link: function(scope) {
       scope.messages = [];
       scope.impMessages = [];
+      scope.position = MessageService.config.position;
       var queue = [];
       var impQueue = [];
       MessageService.registerListener('broadcast', function(msg, opts) {
