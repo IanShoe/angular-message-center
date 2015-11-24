@@ -62,10 +62,8 @@ angular.module('message-center', [
         if (opts && opts.color) {
           message.classes.push(opts.color);
         }
-        $scope.$apply(function() {
-          queue.push(message);
-          processQueue();
-        });
+        queue.push(message);
+        processQueue();
       });
     }],
     restrict: 'E',
@@ -82,18 +80,6 @@ angular.module('message-center', [
     templateUrl: 'templates/message-center/message-item.html'
   };
 });
-
-(function(module) {
-try {
-  module = angular.module('message-center.templates');
-} catch (e) {
-  module = angular.module('message-center.templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('templates/message-center/message-center.html',
-    '<span class="message-center" ng-class="position"><ul class="messages"><message-item ng-repeat="message in messages" class="message-animation"></message-item></ul></span>');
-}]);
-})();
 
 angular.module('message-center.service')
 
@@ -221,6 +207,18 @@ angular.module('message-center.service')
 
   return new MessageService();
 });
+
+(function(module) {
+try {
+  module = angular.module('message-center.templates');
+} catch (e) {
+  module = angular.module('message-center.templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('templates/message-center/message-center.html',
+    '<span class="message-center" ng-class="position"><ul class="messages"><message-item ng-repeat="message in messages" class="message-animation"></message-item></ul></span>');
+}]);
+})();
 
 (function(module) {
 try {

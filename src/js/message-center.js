@@ -62,10 +62,8 @@ angular.module('message-center', [
         if (opts && opts.color) {
           message.classes.push(opts.color);
         }
-        $scope.$apply(function() {
-          queue.push(message);
-          processQueue();
-        });
+        queue.push(message);
+        processQueue();
       });
     },
     restrict: 'E',

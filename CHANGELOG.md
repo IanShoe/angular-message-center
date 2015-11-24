@@ -1,3 +1,10 @@
+<a name="1.3.1"></a>
+# 1.3.1 Patient Patrol (2015-11-24)
+
+## Bug Fixes
+
+- Unnecessary $scope.$apply call
+
 <a name="1.3.0"></a>
 # 1.3.0 Quaint Quake (2015-11-19)
 
@@ -7,7 +14,7 @@
 - Config now supports positioning (top, bottom, left, right, centered)
 - Updated Animations
 
-## Removed Features
+## Breaking Changes
 
 - 'important' now removed
 
