@@ -1,3 +1,11 @@
+<a name="1.3.2"></a>
+# 1.3.2 Orbital Optics (2016-02-22)
+
+## Features
+
+- Updated Dependencies
+- Updated Node Version in travis.yml
+
 <a name="1.3.1"></a>
 # 1.3.1 Patient Patrol (2015-11-24)
 
@@ -10,7 +18,7 @@
 
 ## Features
 
-- New Styling Graciously provided by @knassar
+- New styling graciously provided by @knassar
 - Config now supports positioning (top, bottom, left, right, centered)
 - Updated Animations
 
