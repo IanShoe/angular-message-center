@@ -3,8 +3,8 @@ var del = require('del');
 var es = require('event-stream');
 var gulp = require('gulp');
 var html2js = require('gulp-ng-html2js');
-var minifyCSS = require('gulp-minify-css');
-var minifyHtml = require('gulp-minify-html');
+var cssnano = require('gulp-cssnano');
+var htmlmin = require('gulp-htmlmin');
 var ngAnnotate = require('gulp-ng-annotate');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
@@ -43,11 +43,7 @@ gulp.task('clean-css', function() {
 
 gulp.task('build-js', ['clean-js'], function() {
   var templateStream = gulp.src(pkg.paths.templates)
-    .pipe(minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    .pipe(htmlmin())
     .pipe(html2js({
       moduleName: pkg.name + '.templates',
       prefix: 'templates/message-center/',
@@ -73,7 +69,7 @@ gulp.task('build-css', ['clean-css'], function() {
     .pipe(rename(pkg.name + '.css'))
     .pipe(gulp.dest(pkg.paths.dist.css))
     .pipe(rename(pkg.name + '.min.css'))
-    .pipe(minifyCSS())
+    .pipe(cssnano())
     .pipe(gulp.dest(pkg.paths.dist.css));
 });
 
