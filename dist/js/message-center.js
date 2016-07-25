@@ -52,18 +52,35 @@ angular.module('message-center', [
       };
 
       MessageService.registerListener('broadcast', function(msg, opts) {
+        msg = msg || {};
+        if (!angular.isObject(msg)) {
+          msg = {
+            message: msg
+          };
+        }
         opts = opts || {};
         var message = {
           classes: [],
           id: counter++,
-          message: msg,
+          title: msg.title,
+          message: msg.message,
           timeout: (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) ? opts.timeout : MessageService.config.timeout
         };
         if (opts && opts.color) {
           message.classes.push(opts.color);
         }
-        queue.push(message);
-        processQueue();
+        if ( MessageService.config.replace) {
+          $scope.messages.splice(0, $scope.messages.length);
+          $scope.messages.push(message);
+          if (angular.isDefined(opts.timeout)) {
+            $timeout(function () {
+              $scope.messages.splice(0, $scope.messages.length);
+            }, opts.timeout);
+          }
+        } else {
+          queue.push(message);
+          processQueue();
+        }        
       });
     }],
     restrict: 'E',
@@ -80,6 +97,23 @@ angular.module('message-center', [
     templateUrl: 'templates/message-center/message-item.html'
   };
 });
+
+(function(module) {
+try {
+  module = angular.module('message-center.templates');
+} catch (e) {
+  module = angular.module('message-center.templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('templates/message-center/message-center.html',
+    '<span class="message-center" ng-class="position">\n' +
+    '  <ul class="messages">\n' +
+    '    <message-item ng-repeat="message in messages" class="message-animation"></message-item>\n' +
+    '  </ul>\n' +
+    '</span>\n' +
+    '');
+}]);
+})();
 
 angular.module('message-center.service')
 
@@ -98,7 +132,8 @@ angular.module('message-center.service')
       position: messageCenterPositions.TopRight,
       disabled: false,
       max: 3,
-      timeout: 3000
+      timeout: 3000,
+      replace: false
     };
     this.disabledHistory = [];
     this.history = [];
@@ -215,19 +250,12 @@ try {
   module = angular.module('message-center.templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('templates/message-center/message-center.html',
-    '<span class="message-center" ng-class="position"><ul class="messages"><message-item ng-repeat="message in messages" class="message-animation"></message-item></ul></span>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('message-center.templates');
-} catch (e) {
-  module = angular.module('message-center.templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/message-center/message-item.html',
-    '<li class="message-box" ng-class="message.classes"><span class="message">{{message.message}}</span> <button type="button" class="close" aria-hidden="true" ng-click="removeItem(message)">&times;</button></li>');
+    '<li class="message-box" ng-class="message.classes">\n' +
+    '  <span class="title message" ng-show="message.title">{{message.title}}<br></span>\n' +
+    '  <span class="message">{{message.message}}</span>\n' +
+    '  <button type="button" class="close" aria-hidden="true" ng-click="removeItem(message)">&times;</button>\n' +
+    '</li>\n' +
+    '');
 }]);
 })();

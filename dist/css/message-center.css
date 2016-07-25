@@ -59,6 +59,8 @@
         color: #a94442;
         background-color: #f2dede;
         border-color: #ebcccc; }
+      .message-center .messages .message-box .title {
+        font-weight: bold; }
       .message-center .messages .message-box .message {
         display: block;
         overflow: hidden;
