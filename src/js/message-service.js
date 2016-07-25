@@ -15,7 +15,8 @@ angular.module('message-center.service')
       position: messageCenterPositions.TopRight,
       disabled: false,
       max: 3,
-      timeout: 3000
+      timeout: 3000,
+      replace: false
     };
     this.disabledHistory = [];
     this.history = [];

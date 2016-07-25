@@ -52,18 +52,35 @@ angular.module('message-center', [
       };
 
       MessageService.registerListener('broadcast', function(msg, opts) {
+        msg = msg || {};
+        if (!angular.isObject(msg)) {
+          msg = {
+            message: msg
+          };
+        }
         opts = opts || {};
         var message = {
           classes: [],
           id: counter++,
-          message: msg,
+          title: msg.title,
+          message: msg.message,
           timeout: (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) ? opts.timeout : MessageService.config.timeout
         };
         if (opts && opts.color) {
           message.classes.push(opts.color);
         }
-        queue.push(message);
-        processQueue();
+        if ( MessageService.config.replace) {
+          $scope.messages.splice(0, $scope.messages.length);
+          $scope.messages.push(message);
+          if (angular.isDefined(opts.timeout)) {
+            $timeout(function () {
+              $scope.messages.splice(0, $scope.messages.length);
+            }, opts.timeout);
+          }
+        } else {
+          queue.push(message);
+          processQueue();
+        }        
       });
     },
     restrict: 'E',
