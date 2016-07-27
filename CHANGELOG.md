@@ -1,3 +1,10 @@
+<a name="1.3.3"></a>
+# 1.3.3 Nitrous Nucleus (2016-07-27)
+
+## Features
+- Replace feature graciously provided by @codyb11989
+- Message option now includes `.title`
+
 <a name="1.3.2"></a>
 # 1.3.2 Orbital Optics (2016-02-22)
 

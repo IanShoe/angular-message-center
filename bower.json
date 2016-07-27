@@ -1,6 +1,6 @@
 {
   "name": "angular-message-center",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "main": [
     "dist/js/message-center.js",
     "dist/css/message-center.css"
