@@ -69,7 +69,9 @@ gulp.task('build-css', ['clean-css'], function() {
     .pipe(rename(pkg.name + '.css'))
     .pipe(gulp.dest(pkg.paths.dist.css))
     .pipe(rename(pkg.name + '.min.css'))
-    .pipe(cssnano())
+    .pipe(cssnano({
+      zindex: false
+    }))
     .pipe(gulp.dest(pkg.paths.dist.css));
 });
 
