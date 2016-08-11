@@ -253,7 +253,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/message-center/message-item.html',
     '<li class="message-box" ng-class="message.classes">\n' +
     '  <span class="title message" ng-show="message.title">{{message.title}}<br></span>\n' +
-    '  <span class="message">{{message.message}}</span>\n' +
+    '  <span class="message" ng-bind-html="message.message"></span>\n' +
     '  <button type="button" class="close" aria-hidden="true" ng-click="removeItem(message)">&times;</button>\n' +
     '</li>\n' +
     '');
