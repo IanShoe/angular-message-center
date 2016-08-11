@@ -1,3 +1,10 @@
+<a name="1.4.0"></a>
+# 1.4.0 Meaningful Mutilation (2016-08-11)
+
+## Bug Fixes
+- Fixes z-index for minified file
+- Fix html bind issue. Uses angulars $sce
+
 <a name="1.3.3"></a>
 # 1.3.3 Nitrous Nucleus (2016-07-27)
 
