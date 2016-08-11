@@ -1,4 +1,5 @@
-# angular-message-center [![Build Status](https://travis-ci.org/IanShoe/angular-message-center.png?branch=master)](https://travis-ci.org/IanShoe/angular-message-center)[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/IanShoe/angular-message-center/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+# angular-message-center [![Build Status](https://travis-ci.org/IanShoe/angular-message-center.png?branch=master)](https://travis-ci.org/IanShoe/angular-message-center)
+
 ## Easy Angular Notification Center
 This is an angular module that allows for easy message broadcasting as notification alerts. The css is meant to be tailored for specific needs and serves only as a baseline. The templates are run through angular's $templateCache for portability. Oh and it's also responsive!
 
