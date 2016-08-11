@@ -25,7 +25,7 @@ angular.module('message-center', [
   }
 
   return {
-    controller: ["$scope", "$timeout", "MessageService", function($scope, $timeout, MessageService) {
+    controller: ["$scope", "$sce", "$timeout", "MessageService", function($scope, $sce, $timeout, MessageService) {
       var counter = 0;
       var queue = [];
       $scope.messages = [];
@@ -63,7 +63,7 @@ angular.module('message-center', [
           classes: [],
           id: counter++,
           title: msg.title,
-          message: msg.message,
+          message: $sce.trustAsHtml(msg.message),
           timeout: (angular.isDefined(opts.timeout) && angular.isNumber(opts.timeout)) ? opts.timeout : MessageService.config.timeout
         };
         if (opts && opts.color) {
@@ -80,7 +80,7 @@ angular.module('message-center', [
         } else {
           queue.push(message);
           processQueue();
-        }        
+        }
       });
     }],
     restrict: 'E',
@@ -117,7 +117,7 @@ module.run(['$templateCache', function($templateCache) {
 
 angular.module('message-center.service')
 
-.factory('MessageService', function() {
+.factory('MessageService', function($sce) {
 
   var messageCenterPositions = {
     TopLeft: "top left",
