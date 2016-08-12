@@ -117,7 +117,7 @@ module.run(['$templateCache', function($templateCache) {
 
 angular.module('message-center.service')
 
-.factory('MessageService', function($sce) {
+.factory('MessageService', function() {
 
   var messageCenterPositions = {
     TopLeft: "top left",
