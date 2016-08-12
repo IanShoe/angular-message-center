@@ -1,9 +1,17 @@
+<a name="1.4.1"></a>
+# 1.4.1 Meaningful Mutilation (2016-08-12)
+
+## Cleanup
+- Update dev-dependencies
+- Remove extraneous reference
+
+
 <a name="1.4.0"></a>
 # 1.4.0 Meaningful Mutilation (2016-08-11)
 
 ## Bug Fixes
 - Fixes z-index for minified file
-- Fix html bind issue. Uses angulars $sce
+- Fix html bind issue. Uses angular $sce
 
 <a name="1.3.3"></a>
 # 1.3.3 Nitrous Nucleus (2016-07-27)
