@@ -6,13 +6,13 @@ angular.module('message-center', [
   'message-center.templates'
 ])
 
-.run(function($compile, $document, $rootScope) {
+.run(function ($compile, $document, $rootScope) {
   var messageCenterElem = $compile('<message-center></message-center>')($rootScope);
   $document.find('body').append(messageCenterElem);
 })
 
 // TODO: make a MessageCenter Provider for configuration
-.directive('messageCenter', function() {
+.directive('messageCenter', function () {
 
   function removeById(array, item) {
     for (var i = 0; i < array.length; i++) {
@@ -25,7 +25,7 @@ angular.module('message-center', [
   }
 
   return {
-    controller: function($scope, $sce, $timeout, MessageService) {
+    controller: function ($scope, $sce, $timeout, MessageService) {
       var counter = 0;
       var queue = [];
       $scope.messages = [];
@@ -37,7 +37,7 @@ angular.module('message-center', [
         }
         var nextMsg = queue.shift();
         $scope.messages.push(nextMsg);
-        $timeout(function() {
+        $timeout(function () {
           removeById($scope.messages, nextMsg);
           if (queue.length > 0) {
             processQueue();
@@ -45,13 +45,13 @@ angular.module('message-center', [
         }, nextMsg.timeout);
       }
 
-      $scope.removeItem = function(message) {
+      $scope.removeItem = function (message) {
         // Maybe have a reference to the timeout on message for easier cancelling
         $scope.messages = removeById($scope.messages, message);
         processQueue();
       };
 
-      MessageService.registerListener('broadcast', function(msg, opts) {
+      MessageService.registerListener('broadcast', function (msg, opts) {
         msg = msg || {};
         if (!angular.isObject(msg)) {
           msg = {
@@ -69,7 +69,7 @@ angular.module('message-center', [
         if (opts && opts.color) {
           message.classes.push(opts.color);
         }
-        if ( MessageService.config.replace) {
+        if (MessageService.config.replace) {
           $scope.messages.splice(0, $scope.messages.length);
           $scope.messages.push(message);
           if (angular.isDefined(opts.timeout)) {
@@ -89,7 +89,7 @@ angular.module('message-center', [
   };
 })
 
-.directive('messageItem', function() {
+.directive('messageItem', function () {
   return {
     replace: true,
     restrict: 'E',

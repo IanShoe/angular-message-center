@@ -1,10 +1,18 @@
+<a name="1.4.2"></a>
+# 1.4.2 Luxurious Leisure (2016-11-10)
+
+## Bug Fixes
+- MessageService now properly has listener.danger
+
+## Cleanup
+- Refactored Convenience Methods
+
 <a name="1.4.1"></a>
 # 1.4.1 Meaningful Mutilation (2016-08-12)
 
 ## Cleanup
 - Update dev-dependencies
 - Remove extraneous reference
-
 
 <a name="1.4.0"></a>
 # 1.4.0 Meaningful Mutilation (2016-08-11)
